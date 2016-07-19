@@ -2,7 +2,7 @@
 
 <div class="container-fluid devise-container">
   <div class="row">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-6 col-md-offset-3 col-xs-12">
       <div class="well general-well">
         <h2>Create New Event</h2>
         <%= form_for(@event, html: { id: "newEvent"}, data: { behavior: "new-event-form"} ) do |f| %>
@@ -42,7 +42,7 @@
 
           <div class="row">
             <div class="col-md-12">
-              <div class="form-group">
+              <div class="form-group" id="start-date-group">
                 <%= f.label :start_date, "Start date *" %>
                 <%= f.text_field :start_date, class: "form-control", data: { behavior: "event-start-date" } %>
               </div>
@@ -51,7 +51,7 @@
 
           <div class="row">
             <div class="col-md-12">
-              <div class="form-group">
+              <div class="form-group" id="end-date-group">
                 <%= f.label :end_date, "End date *" %>
                 <%= f.text_field :end_date, class: "form-control", data: { behavior: "event-end-date" } %>
               </div>

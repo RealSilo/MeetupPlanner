@@ -1,14 +1,14 @@
 <tr class = "product-index-row">
-  <td class="col-md-2 image-col">
+  <td class="col-md-2 event-name">
     <%= event.name %>
   </td>
-  <td class="col-md-10 description-col">
-    <div class="name"><%= event.event_type %></div>
-    <div class="oneliner"><%= event.host %></div>
-    <div class="start-date"><%= local_time(event.start_date, "%d %b %I%p") %></div>
-    <div class="end-date"><%= local_time(event.end_date, "%d %b %I%p") %></div>
-    <div class="guest-list"><%= event.guest_list %></div>
-    <div class="location"><%= event.location %></div>
-    <div class="extra-info"><%= event.message || "-" %></div>
+  <td class="col-md-10 event-details">
+    <div class="event-type"><strong>Event type:</strong> <%= event.event_type %></div>
+    <div class="host"><strong>Host:</strong> <%= event.host %></div>
+    <div class="start-date"><strong>Start time:</strong> <%= local_time(event.start_date, "%d %b %I:%M%p") %></div>
+    <div class="end-date"><strong>End time:</strong> <%= local_time(event.end_date, "%d %b %I:%M%p") %></div>
+    <div class="guest-list"><strong>Guests:</strong> <%= event.guest_list %></div>
+    <div class="location"><strong>Location:</strong> <%= event.location %></div>
+    <div class="extra-info"><strong>Extra info:</strong> <%= event.message || "-" %></div>
   </td>
 </tr>

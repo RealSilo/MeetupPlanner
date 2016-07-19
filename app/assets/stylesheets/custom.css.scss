@@ -3,6 +3,7 @@
 }
 
 .new-event-row {
+  padding-top:10px;
   padding-bottom: 20px;
 }
 
@@ -18,4 +19,17 @@
 h2 {
   margin-top: 5px;
   margin-bottom: 15px;
+}
+
+.table tbody > tr > td {
+    vertical-align: top;
+}
+
+.table tbody > tr> td.event-name {
+    vertical-align: middle;
+}
+
+.event-name {
+  font-size: 18px;
+  vertical-align: middle;
 }

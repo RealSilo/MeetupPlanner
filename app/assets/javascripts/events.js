@@ -1,4 +1,7 @@
 $(document).on('turbolinks:load', function() {
+
+  //$('[data-behavior="event-submit-button"]').prop('disabled', true);
+
   $('#newEvent').formValidation({
     framework: 'bootstrap',
     icon: {
@@ -40,9 +43,9 @@ $(document).on('turbolinks:load', function() {
             message: 'The username is required'
           },
           stringLength: {
-            min: 6,
+            min: 4,
             max: 32,
-            message: 'The username must be more than 6 and less than 32 characters long'
+            message: 'The username must be more than 4 and less than 32 characters long'
           }
         }
       },
@@ -50,6 +53,10 @@ $(document).on('turbolinks:load', function() {
         validators: {
           notEmpty: {
             message: 'The start date is required'
+          },
+          date: {
+            format: 'MM/DD/YYYY hh:mm A',
+            message: 'The date is not a valid'
           }
         }
       },
@@ -57,6 +64,10 @@ $(document).on('turbolinks:load', function() {
         validators: {
           notEmpty: {
             message: 'The start date is required'
+          },
+          date: {
+            format: 'MM/DD/YYYY hh:mm A',
+            message: 'The date is not a valid'
           }
         }
       },
@@ -85,6 +96,48 @@ $(document).on('turbolinks:load', function() {
         }
       }
     }
+  })
+  .on('success.validator.fv', function(e, data) {
+    if (data.field === 'event[start_date]' && data.validator === 'date' && data.result.date) {
+      // The eventDate field passes the date validator
+      // We can get the current date as a Javascript Date object
+      var formStartDate = moment($('[data-behavior="event-start-date"]').val());
+      var momentTime = moment();
+      // If the selected date is Sunday
+      if (momentTime > formStartDate) {
+        // Treat the field as invalid
+        data.fv
+            .updateStatus(data.field, data.fv.STATUS_INVALID, data.validator)
+            .updateMessage(data.field, data.validator, "Event can't start in the past");
+      } else {
+        // Reset the message
+        data.fv.updateMessage(data.field, data.validator, 'The date is not valid');
+      }
+    }
+    else if (data.field === 'event[end_date]' && data.validator === 'date' && data.result.date) {
+      // The eventDate field passes the date validator
+      // We can get the current date as a Javascript Date object
+      var formEndDate = moment($('[data-behavior="event-end-date"]').val());
+      var momentTime = moment();
+      // If the selected date is Sunday
+      if (momentTime > formEndDate) {
+        // Treat the field as invalid
+        data.fv
+            .updateStatus(data.field, data.fv.STATUS_INVALID, data.validator)
+            .updateMessage(data.field, data.validator, "Event end date must be after the start date");
+      } else {
+        // Reset the message
+        data.fv.updateMessage(data.field, data.validator, 'The date is not valid');
+      }
+    }
+  });
+
+  $('#start-date-group').on('dp.change dp.show', function(e) {
+    $('#newEvent').formValidation('revalidateField', 'event[start_date]');
+  });
+
+  $('#end-date-group').on('dp.change dp.show', function(e) {
+    $('#newEvent').formValidation('revalidateField', 'event[end_date]');
   });
 
   $(function () {
@@ -103,7 +156,7 @@ $(document).on('turbolinks:load', function() {
     });
   });
 
-  $(document).on('click', '[data-behavior="event-submit-button"]', function (e){
+  $(document).on('click', '[data-behavior="event-submit-button"]', function (e) {
     e.preventDefault();
     var startDateField = $('[data-behavior="event-start-date"]');
     var endDateField = $('[data-behavior="event-end-date"]');

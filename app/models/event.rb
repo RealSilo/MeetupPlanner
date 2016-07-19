@@ -22,4 +22,18 @@ class Event < ActiveRecord::Base
   def end_date_string=(end_date_str)
     self.end_date = end_date_str
   end
+
+  private
+
+    def start_date_can_not_be_in_the_past
+      if deadline.present? && deadline < Time.zone.now
+        errors.add(:start_date, "can't be in the past")
+      end
+    end
+
+    def end_date_can_not_be_in_the_past
+      if deadline.present? && deadline < Time.zone.now
+        errors.add(:end_date, "can't be earlier than start date")
+      end
+    end
 end

@@ -1,5 +1,9 @@
 $(document).on('turbolinks:load', function() {
 
+  $('[data-behavior="new-registration-submit"]').prop('disabled', true);
+  $('[data-behavior="new-session-submit"]').prop('disabled', true);
+
+
   $('#newRegForm').formValidation({
     framework: 'bootstrap',
     icon: {

@@ -3,7 +3,7 @@
 
 <div class="container-fluid devise-container">
   <div class="row">
-    <div class="col-md-4 col-md-offset-4">
+    <div class="col-md-4 col-md-offset-4 col-xs-12">
       <div class="well general-well">
 
         
@@ -70,7 +70,7 @@
           </div>
 
           <div class="actions">
-            <%= f.button "CREATE YOUR ACCOUNT", class: 'btn btn-primary btn-block', data: {disable_with: "<i class='fa fa-spinner fa-spin'></i> CREATING YOUR ACCOUNT..."} %>
+            <%= f.button "CREATE YOUR ACCOUNT", class: 'btn btn-primary btn-block', data: { behavior: "new-registration-submit", disable_with: "<i class='fa fa-spinner fa-spin'></i> CREATING YOUR ACCOUNT..."} %>
           </div>
         <% end %>
 
