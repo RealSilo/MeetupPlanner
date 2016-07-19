@@ -1,10 +1,12 @@
 source 'https://rubygems.org'
+ruby '2.3.1'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.15'
+gem 'puma', '~> 3.5'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -23,14 +25,15 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bootstrap-sass', '~> 3.3', '>= 3.3.6'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17', '>= 4.17.37'
+gem 'font-awesome-rails', '~> 4.6', '>= 4.6.3.1'
+gem 'font_assets', '~> 0.1.12'
 
-# Use Unicorn as the app server
-# gem 'unicorn'
+gem 'devise', '~> 4.1'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+gem 'momentjs-rails', '~> 2.11', '>= 2.11.1'
+gem 'local_time', '~> 1.0', '>= 1.0.3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -40,8 +43,13 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
+  gem 'better_errors', '~> 2.1.1'
+  gem 'quiet_assets', '~> 1.1.0'
+  gem 'hirb', '~> 0.7.3'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
+
+gem 'rails_12factor', group: :production
 
