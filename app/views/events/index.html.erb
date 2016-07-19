@@ -1,0 +1,16 @@
+<% provide(:title, "Events") %>
+
+<div class="container events-container">
+  <div class="row new-event-row" >
+    <div class="col-md-12">
+      <%= link_to "Add new event", new_event_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <table class="table">
+      <tbody class="events-insert">
+        <%= render @events %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -11,6 +11,12 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery-ui
 //= require jquery_ujs
+//= require bootstrap-sprockets
+//= require formvalidation.min
+//= require formvalidation/framework/bootstrap.min
 //= require turbolinks
+//= require moment
+//= require bootstrap-datetimepicker
 //= require_tree .

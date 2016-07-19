@@ -1,0 +1,81 @@
+<% provide(:title, "Sign up") %>
+
+
+<div class="container-fluid devise-container">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <div class="well general-well">
+
+        
+        <h2>Sign Up</h2>
+
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { id: 'newRegForm' }) do |f| %>
+          <%= devise_error_messages! %>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <%= f.label :full_name, "Full Name *" %>
+                <%= f.text_field :full_name, autofocus: true, placeholder: "e.g. John Smith", class: "form-control" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <%= f.label :email, "Email *" %><br />
+                <%= f.email_field :email, placeholder: "e.g. john@gmail.com", class: "form-control" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <%= f.label :password, "Password *" %>
+                <% if @minimum_password_length %>
+                  <em>(<%= @minimum_password_length %> characters minimum)</em>
+                <% end %><br />
+                <%= f.password_field :password, autocomplete: "off", placeholder: "******", class: "form-control" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <%= f.label :password_confirmation, "Password Confirmation *" %><br />
+                <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "******", class: "form-control" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <%= f.label :company, "Company" %>
+                <%= f.text_field :company, placeholder: "e.g. Google Inc.", class: "form-control" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <%= f.label :job_title, "Job Title" %>
+                <%= f.text_field :job_title, placeholder: "e.g. Front-end Developer", class: "form-control" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <%= f.button "CREATE YOUR ACCOUNT", class: 'btn btn-primary btn-block', data: {disable_with: "<i class='fa fa-spinner fa-spin'></i> CREATING YOUR ACCOUNT..."} %>
+          </div>
+        <% end %>
+
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
+  </div>
+</div>

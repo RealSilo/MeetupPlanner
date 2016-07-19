@@ -6,13 +6,17 @@ default: &default
 development:
   <<: *default
   database: MeetupPlanner_development
+  host: localhost
+  username: Silo
+  password:
 
 test:
   <<: *default
   database: MeetupPlanner_test
+  host: localhost
+  username: Silo
+  password:
 
 production:
   <<: *default
-  database: MeetupPlanner_production
-  username: MeetupPlanner
-  password: <%= ENV['MEETUPPLANNER_DATABASE_PASSWORD'] %>
+  url: <%= ENV["DATABASE_URL"] %>

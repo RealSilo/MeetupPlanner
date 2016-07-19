@@ -1,0 +1,27 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <% if user_signed_in? %>
+        <%= link_to "MeetupPlanner", root_path, class: "navbar-brand" %>
+      <% else %>
+        <%= link_to "MeetupPlanner", new_user_session_path, class: "navbar-brand" %>
+      <% end %>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %>
+          <li><p class="navbar-btn"><%= link_to "LOG OUT", destroy_user_session_path, method: :delete, class: "btn btn-primary" %></p></li>
+        <% else %>
+          <% if params[:controller] == "devise/sessions" && params[:action] == "new" %>
+            <li><p class="navbar-btn"><%= link_to "SIGN UP", new_user_registration_path, class: "btn btn-primary", id: "btn-outline-primary" %></p></li>
+          <% else %>
+            <li><p class="navbar-btn"><%= link_to "LOG IN",   new_user_session_path, class: "btn btn-primary", id: "btn-outline-primary" %></p></li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

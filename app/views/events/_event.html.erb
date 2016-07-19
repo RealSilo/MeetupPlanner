@@ -1,0 +1,14 @@
+<tr class = "product-index-row">
+  <td class="col-md-2 image-col">
+    <%= event.name %>
+  </td>
+  <td class="col-md-10 description-col">
+    <div class="name"><%= event.event_type %></div>
+    <div class="oneliner"><%= event.host %></div>
+    <div class="start-date"><%= local_time(event.start_date, "%d %b %I%p") %></div>
+    <div class="end-date"><%= local_time(event.end_date, "%d %b %I%p") %></div>
+    <div class="guest-list"><%= event.guest_list %></div>
+    <div class="location"><%= event.location %></div>
+    <div class="extra-info"><%= event.message || "-" %></div>
+  </td>
+</tr>
