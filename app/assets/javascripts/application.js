@@ -17,6 +17,7 @@
 //= require formvalidation.min
 //= require formvalidation/framework/bootstrap.min
 //= require turbolinks
+//= require geocomplete
 //= require moment
 //= require bootstrap-datetimepicker
 //= require_tree .

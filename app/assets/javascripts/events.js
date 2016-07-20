@@ -2,6 +2,37 @@ $(document).on('turbolinks:load', function() {
 
   //$('[data-behavior="event-submit-button"]').prop('disabled', true);
 
+  $(function() {
+    $(".location-geo-input").geocomplete();
+  });
+
+  $(function () {
+    var startNow = moment();
+    var remainder = (15 - startNow.minute()) % 15;
+    var defaultMinStartDateMoment = moment(startNow).add("minutes", remainder).format('MM/DD/YYYY hh:mm A');
+    var defaultMinEndDateMoment = moment(defaultMinStartDateMoment).add('minutes', 15);
+    var defaultDateStartMoment = moment().add('minutes', 15);
+    var defaultDateEndMoment = moment().add('minutes', 30);
+
+    $('[data-behavior="event-start-date"]').datetimepicker({
+      sideBySide: true,
+      format: 'MM/DD/YYYY hh:mm A',
+      stepping: 15,
+      widgetPositioning: { vertical: 'bottom' },
+      minDate: defaultMinStartDateMoment
+      //defaultDate: defaultDateStartMoment
+    });
+
+    $('[data-behavior="event-end-date"]').datetimepicker({
+      sideBySide: true,
+      format: 'MM/DD/YYYY hh:mm A',
+      stepping: 15,
+      widgetPositioning: { vertical: 'bottom' },
+      minDate: defaultMinEndDateMoment
+      //defaultDate: defaultDateEndMoment
+    });
+  });
+
   $('#newEvent').formValidation({
     framework: 'bootstrap',
     icon: {
@@ -50,24 +81,25 @@ $(document).on('turbolinks:load', function() {
         }
       },
       'event[start_date]': {
+        trigger: 'blur',
         validators: {
           notEmpty: {
             message: 'The start date is required'
           },
           date: {
             format: 'MM/DD/YYYY hh:mm A',
-            message: 'The date is not a valid'
+            message: 'The date is not valid'
           }
         }
       },
       'event[end_date]': {
         validators: {
           notEmpty: {
-            message: 'The start date is required'
+            message: 'The end date is required'
           },
           date: {
             format: 'MM/DD/YYYY hh:mm A',
-            message: 'The date is not a valid'
+            message: 'The date is not valid'
           }
         }
       },
@@ -102,9 +134,10 @@ $(document).on('turbolinks:load', function() {
       // The eventDate field passes the date validator
       // We can get the current date as a Javascript Date object
       var formStartDate = moment($('[data-behavior="event-start-date"]').val());
+      var formEndDate = moment($('[data-behavior="event-end-date"]').val());
       var momentTime = moment();
       // If the selected date is Sunday
-      if (momentTime > formStartDate) {
+      if (formStartDate && momentTime > formStartDate) {
         // Treat the field as invalid
         data.fv
             .updateStatus(data.field, data.fv.STATUS_INVALID, data.validator)
@@ -112,15 +145,24 @@ $(document).on('turbolinks:load', function() {
       } else {
         // Reset the message
         data.fv.updateMessage(data.field, data.validator, 'The date is not valid');
-      }
+      };
+      if (formStartDate && formEndDate && formStartDate >= formEndDate) {
+        // Treat the field as invalid
+        data.fv
+            .updateStatus('event[end_date]', data.fv.STATUS_INVALID, data.validator)
+            .updateMessage('event[end_date]', data.validator, "Event end date must be after the start date");
+      } else {
+        // Reset the message
+        data.fv.updateMessage('event[end_date]', data.validator, 'The date is not valid');
+      };
     }
     else if (data.field === 'event[end_date]' && data.validator === 'date' && data.result.date) {
       // The eventDate field passes the date validator
       // We can get the current date as a Javascript Date object
       var formEndDate = moment($('[data-behavior="event-end-date"]').val());
-      var momentTime = moment();
+      var formStartDate = moment($('[data-behavior="event-start-date"]').val());
       // If the selected date is Sunday
-      if (momentTime > formEndDate) {
+      if (formStartDate >= formEndDate) {
         // Treat the field as invalid
         data.fv
             .updateStatus(data.field, data.fv.STATUS_INVALID, data.validator)
@@ -139,33 +181,18 @@ $(document).on('turbolinks:load', function() {
   $('#end-date-group').on('dp.change dp.show', function(e) {
     $('#newEvent').formValidation('revalidateField', 'event[end_date]');
   });
+});  
 
-  $(function () {
-    $('[data-behavior="event-start-date"]').datetimepicker({
-      sideBySide: true,
-      format: 'MM/DD/YYYY hh:mm A',
-      stepping: 15,
-      widgetPositioning: { vertical: 'bottom' }
-    });
 
-    $('[data-behavior="event-end-date"]').datetimepicker({
-      sideBySide: true,
-      format: 'MM/DD/YYYY hh:mm A',
-      stepping: 15,
-      widgetPositioning: { vertical: 'bottom' }
-    });
-  });
-
-  $(document).on('click', '[data-behavior="event-submit-button"]', function (e) {
-    e.preventDefault();
-    var startDateField = $('[data-behavior="event-start-date"]');
-    var endDateField = $('[data-behavior="event-end-date"]');
-    var startLocalMoment = moment(startDateField.val());
-    var endLocalMoment = moment(endDateField.val());
-    var startDateRails = startLocalMoment.toISOString();
-    var endDateRails = endLocalMoment.toISOString();
-    startDateField.val(startDateRails);
-    endDateField.val(endDateRails);
-    $('[data-behavior="new-event-form"]').submit();
-  });
+$(document).on('click', '[data-behavior="event-submit-button"]', function (e) {
+  e.preventDefault();
+  var startDateField = $('[data-behavior="event-start-date"]');
+  var endDateField = $('[data-behavior="event-end-date"]');
+  var startLocalMoment = moment(startDateField.val());
+  var endLocalMoment = moment(endDateField.val());
+  var startDateRails = startLocalMoment.toISOString();
+  var endDateRails = endLocalMoment.toISOString();
+  startDateField.val(startDateRails);
+  endDateField.val(endDateRails);
+  $('[data-behavior="new-event-form"]').submit();
 });

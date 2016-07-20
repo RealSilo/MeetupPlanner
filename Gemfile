@@ -37,6 +37,9 @@ gem 'devise', '~> 4.1'
 gem 'momentjs-rails', '~> 2.11', '>= 2.11.1'
 gem 'local_time', '~> 1.0', '>= 1.0.3'
 
+gem 'gmaps4rails', '~> 2.1', '>= 2.1.2'
+gem 'geocomplete_rails', '~> 1.7'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

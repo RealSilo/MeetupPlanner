@@ -17,7 +17,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <%= f.label :name, "Name *" %>
-                <%= f.text_field :name, autofocus: true, placeholder: "e.g. Development team meeting", class: "form-control" %>
+                <%= f.text_field :name, autofocus: true, placeholder: "e.g. Birthday party", class: "form-control" %>
               </div>
             </div>
           </div>
@@ -26,7 +26,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <%= f.label :event_type, "Event type *" %>
-                <%= f.text_field :event_type, placeholder: "e.g. Conference talk", class: "form-control" %>
+                <%= f.text_field :event_type, placeholder: "e.g. House party with small group of friends", class: "form-control" %>
               </div>
             </div>
           </div>
@@ -35,7 +35,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <%= f.label :host, "Host * (person or organization)" %>
-                <%= f.text_field :host, placeholder: "e.g. John Smith ", class: "form-control" %>
+                <%= f.text_field :host, placeholder: "e.g. Jane Smith", class: "form-control" %>
               </div>
             </div>
           </div>
@@ -71,7 +71,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <%= f.label :location, "Location *" %>
-                <%= f.text_field :location, placeholder: "e.g. 1 Hacker Way, Palo Alto, 94303", class: "form-control" %>
+                <%= f.text_field :location, placeholder: "e.g. 1 Hacker Way, Menlo Park, CA", class: "form-control location-geo-input" %>
               </div>
             </div>
           </div>
@@ -80,7 +80,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <%= f.label :message, "Extra info" %>
-                <%= f.text_area :message, rows: "3", placeholder: "e.g. Bring your laptop with you", class: "form-control" %>
+                <%= f.text_area :message, rows: "3", placeholder: "e.g. Bring some snacks with you", class: "form-control" %>
               </div>
             </div>
           </div>
