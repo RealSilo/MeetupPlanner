@@ -8,7 +8,7 @@ $(document).on('turbolinks:load', function() {
 
   $(function () {
     var startNow = moment();
-    var remainder = (15 - startNow.minute()) % 15;
+    var remainder = 15 - (startNow.minute() % 15);
     var defaultMinStartDateMoment = moment(startNow).add("minutes", remainder).format('MM/DD/YYYY hh:mm A');
     var defaultMinEndDateMoment = moment(defaultMinStartDateMoment).add('minutes', 15);
     var defaultDateStartMoment = moment().add('minutes', 15);
@@ -103,6 +103,13 @@ $(document).on('turbolinks:load', function() {
           }
         }
       },
+      'event[location]': {
+        validators: {
+          notEmpty: {
+            message: 'Location is required'
+          }
+        }
+      },
       'event[guest_list]': {
         validators: {
           notEmpty: {
@@ -110,13 +117,6 @@ $(document).on('turbolinks:load', function() {
           },
           stringLength: {
             max: 32
-          }
-        }
-      },
-      'event[location]': {
-        validators: {
-          notEmpty: {
-            message: 'Location is required'
           }
         }
       },

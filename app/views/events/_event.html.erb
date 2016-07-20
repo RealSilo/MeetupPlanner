@@ -7,8 +7,8 @@
     <div class="host"><strong>Host:</strong> <%= event.host %></div>
     <div class="start-date"><strong>Start time:</strong> <%= local_time(event.start_date, "%d %b %I:%M%p") %></div>
     <div class="end-date"><strong>End time:</strong> <%= local_time(event.end_date, "%d %b %I:%M%p") %></div>
-    <div class="guest-list"><strong>Guests:</strong> <%= event.guest_list %></div>
     <div class="location"><strong>Location:</strong> <%= event.location %></div>
+    <div class="guest-list"><strong>Guests:</strong> <%= event.guest_list %></div>
     <div class="extra-info"><strong>Extra info:</strong> <%= event.message || "-" %></div>
   </td>
 </tr>
