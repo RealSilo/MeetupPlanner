@@ -11,8 +11,8 @@ $(document).on('turbolinks:load', function() {
     var remainder = 15 - (startNow.minute() % 15);
     var defaultMinStartDateMoment = moment(startNow).add("minutes", remainder).format('MM/DD/YYYY hh:mm A');
     var defaultMinEndDateMoment = moment(defaultMinStartDateMoment).add('minutes', 15);
-    var defaultDateStartMoment = moment().add('minutes', 15);
-    var defaultDateEndMoment = moment().add('minutes', 30);
+    var defaultDateStartMoment = moment(defaultMinStartDateMoment);
+    var defaultDateEndMoment = moment(defaultDateStartMoment).add('minutes', 15);
 
     $('[data-behavior="event-start-date"]').datetimepicker({
       sideBySide: true,
@@ -81,7 +81,6 @@ $(document).on('turbolinks:load', function() {
         }
       },
       'event[start_date]': {
-        trigger: 'blur',
         validators: {
           notEmpty: {
             message: 'The start date is required'
@@ -172,6 +171,14 @@ $(document).on('turbolinks:load', function() {
         data.fv.updateMessage(data.field, data.validator, 'The date is not valid');
       }
     }
+  })
+  .on('err.form.fv', function(e) {
+    var startDateField = $('[data-behavior="event-start-date"]');
+    var endDateField = $('[data-behavior="event-end-date"]');
+    var newStartDate = moment(startDateField.val()).format('MM/DD/YYYY hh:mm A');
+    var newEndDate = moment(endDateField.val()).format('MM/DD/YYYY hh:mm A');
+    startDateField.val(newStartDate);
+    endDateField.val(newEndDate);
   });
 
   $('#start-date-group').on('dp.change dp.show', function(e) {
@@ -196,3 +203,9 @@ $(document).on('click', '[data-behavior="event-submit-button"]', function (e) {
   endDateField.val(endDateRails);
   $('[data-behavior="new-event-form"]').submit();
 });
+
+// $(document).on('page:change', function() {
+//   var railsStartDateField = $('[data-behavior="event-start-date"]').val();
+//   var changingToMoment = moment(railsStartDateField).format('MM/DD/YYYY hh:mm A');
+//   $(railsStartDateField).val(changingToMoment);
+// });
